@@ -48,9 +48,7 @@ int ThreeSeven(int[] cazino, int betUser)
     {
         if (cazino[0] == 7 && cazino[1] == 7 && cazino[2] == 7)
         {
-            Console.Write("JackPot 777 AXE");
             billAcaunt777 = betUser * 10;
-            Console.WriteLine("\n----------------");
         }
     }
     return billAcaunt777;
@@ -61,9 +59,7 @@ int ThreeSix(int[] cazino, int betUser)
     int billAcaunt666 = 0;
     if (cazino[0] == 6 && cazino[1] == 6 && cazino[2] == 6)
             {
-                Console.Write("JackPot 666 SATAN");
                 billAcaunt666 = betUser * 6;
-                Console.WriteLine("\n----------------");
             }
     return billAcaunt666;
 }
@@ -79,9 +75,7 @@ int ThreeNumbers(int[]cazino, int betUser)
                 cazino[0] == 8 && cazino[1] == 8 && cazino[2] == 8 ||
                 cazino[0] == 9 && cazino[1] == 9 && cazino[2] == 9)
             {
-                Console.Write("Add x3 YOR BILL");
                 billAcauntMedium = betUser * 3;
-                Console.WriteLine("\n----------------");
             }
             return billAcauntMedium;
 }
@@ -108,9 +102,7 @@ int TwoNumbers(int[] cazino, int betUser)
                 cazino[0] == 9 && cazino[1] == 9 ||
                 cazino[1] == 9 && cazino[2] == 9)
             {
-                Console.Write("Add x2 YOUR BILL");
                 billAcauntLow = betUser * 2;
-                Console.WriteLine("\n----------------");
             }
             return billAcauntLow;
 }
@@ -172,33 +164,34 @@ void ExitGame(int betUser)
             Console.WriteLine("\n Your accaunt bill = 0, NEED MORE MONEY!"); 
         Go = false;
         }
-        if (betUser > billAccaunt)
-        {
-        Console.WriteLine($" Your BET more Your bill accaunt ");
-        }
+}
+
+void BetMoreBill(int betUser)
+{ 
+bool Go = true;
+    if (betUser > billAccaunt)
+    {
+        Console.WriteLine("\n Your bet more how your bill ");
+        Go = false;
+    }
 }
 //--------------------------------------------------------------------------------------
-int betUser = InputBet();
+
 int[] cazino = new int[3];
-do
+
+while (true)
 {
+    {
+    int betUser = InputBet();
     ExitGame(betUser);
+    BetMoreBill(betUser);
     CasinoArray(cazino);
     OutputCasinoArray(cazino);
     CazinoGame(cazino, betUser);
     OutputPrize(cazino, betUser);
+    }
 
-} while (!true);
-
-
-// Проблемы
-//1. Заходит 3ри раза на проверку выйграшных комибинаций 
-//(3ри захода, а прерывал breakОМ - при выйграшной комбинации будет выкидывать каждый раз writeline...) 
-
-// Вспомнил про 1 фунц = 1 действие по первой проблеме просто убрать вывод текста, и она уйдёт сама собой
-
+}
 
 //2. При неверном вводе ставки  продолжает выполнение программы.
 //Надо: Перезапускать программу 
-//3. Первым что делает заходит не в цикл, а в глобальную переменную betUser -> фунц. ImputBet
-//4. Нормально не циклится.
