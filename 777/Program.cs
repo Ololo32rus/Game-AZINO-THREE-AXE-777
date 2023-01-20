@@ -3,7 +3,7 @@
 using System.Text;
 
 int billAccaunt = 100;
-
+int asd;
 bool toGO = true;
 do
 {
