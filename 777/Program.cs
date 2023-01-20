@@ -187,14 +187,13 @@ int betUser = InputBet();
 int[] cazino = new int[3];
 do
 {
-    InputBet();
     ExitGame(betUser);
     CasinoArray(cazino);
     OutputCasinoArray(cazino);
     CazinoGame(cazino, betUser);
     OutputPrize(cazino, betUser);
 
-} while (true);
+} while (!true);
 
 
 // Проблемы
@@ -204,4 +203,5 @@ do
 //2. При неверном вводе ставки  продолжает выполнение программы.
 //Надо: Перезапускать программу 
 //3. Первым что делает заходит не в цикл, а в глобальную переменную betUser -> фунц. ImputBet
+//4. Нормально не циклится.
 
