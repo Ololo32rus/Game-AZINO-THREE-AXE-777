@@ -41,12 +41,7 @@ void OutputCasinoArray(int[] cazino)
         }
         Console.WriteLine("\n----------------");
 }
-/*
-void ArrayLenthg(int[] cazino)
-{
-    for (int i = 0; i < cazino.Length; i++) ;
-}
-*/
+
 int ThreeSeven(int[] cazino, int betUser)
 {
     int billAcaunt777 = 0;  
