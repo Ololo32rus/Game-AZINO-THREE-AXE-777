@@ -1,197 +1,170 @@
 ﻿// автомат выдаёт рандомно ТРИ числа от 1 до 9. Пользователь крутит числа нажатием кноки, перед тем сделал ставку (у него есть счет изначально)
 
-int billAccaunt = 100;
-int InputBet()
+
+using _777;
+
+int InputBet(int billAccaunt)
+{
+    bool isCorrectInput;
+    int betUser = 0;
+
+    do
     {
-        bool Go = true;
-        int betUser= 0;
         try
         {
+            isCorrectInput = true;
+
             Console.WriteLine($"***\t Your bill: {billAccaunt}$ \t***");
             Console.WriteLine($"\n *** Your bet in $ : ***");
             betUser = int.Parse(Console.ReadLine());
             Console.WriteLine("\n----------------");
-        billAccaunt -= betUser;
-    }
 
+            if (betUser > billAccaunt)
+            {
+                isCorrectInput = false;
+                Console.WriteLine("Your need more money");
+            }
+        }
         catch
         {
-       
-        Console.WriteLine("Plaese send bet in NUMBER. From next game press all button + ENTER ");
-        Console.ReadLine(); 
-        Console.Clear();
-        Go = false;
+            isCorrectInput = false;
+            Console.WriteLine("Plaese send bet in NUMBER. From next game press all button + ENTER ");
         }
-        return betUser;
-    }
+    } while (!isCorrectInput);
 
-    void CasinoArray(int[] cazino)
+
+    return betUser;
+}
+
+void CasinoArray(int[] cazino)
+{
+    Random rnd = new Random();
+    for (int i = 0; i < cazino.Length; i++)
     {
-        Random rnd = new Random();
-        for (int i = 0; i < cazino.Length; i++)
-        {
-            cazino[i] = rnd.Next(1, 9 + 1);
-        }
+        cazino[i] = rnd.Next(1, 9 + 1);
     }
+}
+
 void OutputCasinoArray(int[] cazino)
-{ 
-        for (int i = 0; i < cazino.Length; i++)
-        {
-            Console.Write($"{cazino[i]} \t");
-        }
-        Console.WriteLine("\n----------------");
-}
-
-int ThreeSeven(int[] cazino, int betUser)
-{
-    int billAcaunt777 = 0;  
-    {
-        if (cazino[0] == 7 && cazino[1] == 7 && cazino[2] == 7)
-        {
-            billAcaunt777 = betUser * 10;
-        }
-    }
-    return billAcaunt777;
-}
-
-int ThreeSix(int[] cazino, int betUser)
-{
-    int billAcaunt666 = 0;
-    if (cazino[0] == 6 && cazino[1] == 6 && cazino[2] == 6)
-            {
-                billAcaunt666 = betUser * 6;
-            }
-    return billAcaunt666;
-}
-
-int ThreeNumbers(int[]cazino, int betUser)
-{ 
-    int billAcauntMedium = 0;
-            if (cazino[0] == 1 && cazino[1] == 1 && cazino[2] == 1 ||
-                cazino[0] == 2 && cazino[1] == 2 && cazino[2] == 2 ||
-                cazino[0] == 3 && cazino[1] == 3 && cazino[2] == 3 ||
-                cazino[0] == 4 && cazino[1] == 4 && cazino[2] == 4 ||
-                cazino[0] == 5 && cazino[1] == 5 && cazino[2] == 5 ||
-                cazino[0] == 8 && cazino[1] == 8 && cazino[2] == 8 ||
-                cazino[0] == 9 && cazino[1] == 9 && cazino[2] == 9)
-            {
-                billAcauntMedium = betUser * 3;
-            }
-            return billAcauntMedium;
-}
-
-int TwoNumbers(int[] cazino, int betUser)
-{ 
-    int billAcauntLow = 0;
-            if (cazino[0] == 1 && cazino[1] == 1 ||
-                cazino[1] == 1 && cazino[2] == 1 ||
-                cazino[0] == 2 && cazino[1] == 2 ||
-                cazino[1] == 2 && cazino[2] == 2 ||
-                cazino[0] == 3 && cazino[1] == 3 ||
-                cazino[1] == 3 && cazino[2] == 3 ||
-                cazino[0] == 4 && cazino[1] == 4 ||
-                cazino[1] == 4 && cazino[2] == 4 ||
-                cazino[0] == 5 && cazino[1] == 5 ||
-                cazino[1] == 5 && cazino[2] == 5 ||
-                cazino[0] == 6 && cazino[1] == 6 ||
-                cazino[1] == 6 && cazino[2] == 6 ||
-                cazino[0] == 7 && cazino[1] == 7 ||
-                cazino[1] == 7 && cazino[2] == 7 ||
-                cazino[0] == 8 && cazino[1] == 8 ||
-                cazino[1] == 8 && cazino[2] == 8 ||
-                cazino[0] == 9 && cazino[1] == 9 ||
-                cazino[1] == 9 && cazino[2] == 9)
-            {
-                billAcauntLow = betUser * 2;
-            }
-            return billAcauntLow;
-}
-        
-void OutputPrize(int[] cazino, int betUser)
-{ 
-        if (ThreeSeven(cazino, betUser) > 0)
-        {
-            Console.Write("JACKPOT! 777 AXE! Congratulations!!!");
-            Console.WriteLine("\n----------------");
-            Console.WriteLine($"Your prize: {ThreeSeven(cazino, betUser)}$");
-            billAccaunt += ThreeSeven(cazino, betUser);
-        }
-        if (ThreeSix(cazino, betUser) > 0)
-        {
-            Console.Write("JACKPOT! ***666*** ");
-            Console.WriteLine(" \n----------------");
-            Console.WriteLine($"Your prize: {ThreeSix(cazino, betUser)}$");
-            billAccaunt += ThreeSix(cazino, betUser);
-        }
-        if (ThreeNumbers(cazino, betUser) > 0)
-        {
-            Console.Write(" *** x3 prize ***");
-            Console.WriteLine("\n----------------");
-            Console.Write($"Your prize: {ThreeNumbers(cazino, betUser)}$");
-            billAccaunt += ThreeNumbers(cazino, betUser);
-        }
-        if (TwoNumbers(cazino, betUser) > 0)
-        {
-            Console.Write("*** x2 prize ***");
-            Console.WriteLine("\n----------------");
-            Console.Write($"\nYour prize: {TwoNumbers(cazino, betUser)}$");
-            billAccaunt += TwoNumbers(cazino, betUser);
-        }
-    Console.WriteLine($"\nPlaese press |all button + ENTER| from next game. Thanks");
-    Console.ReadLine();
-    Console.Clear();
-}
-
-void CazinoGame(int[] cazino, int betUser)
 {
     for (int i = 0; i < cazino.Length; i++)
     {
-        ThreeSeven (cazino, betUser);
-        ThreeSix (cazino, betUser);
-        ThreeNumbers (cazino, betUser);
-        TwoNumbers(cazino, betUser);
+        Console.Write($"{cazino[i]} \t");
     }
-    Console.WriteLine();
+
+    Console.WriteLine("\n----------------");
+}
+
+PrizeResult CazinoGame(int[] cazino, int betUser)
+{
+    PrizeResult prizeResult;
+
+    if (cazino[0] == 7 && cazino[1] == 7 && cazino[2] == 7)
+    {
+        prizeResult.Win = betUser * 10;
+        prizeResult.PrizeType = PrizeType.ThreeSeven;
+    }
+    else if (cazino[0] == 6 && cazino[1] == 6 && cazino[2] == 6)
+    {
+        prizeResult.Win = betUser * 6;
+        prizeResult.PrizeType = PrizeType.ThreeSix;
+    }
+    else if (cazino[0] == cazino[1] && cazino[1] == cazino[2] && cazino[0] == cazino[2])
+    {
+        prizeResult.Win = betUser * 3;
+        prizeResult.PrizeType = PrizeType.ThreeNumbers;
+    }
+    else if (cazino[0] == cazino[1] || cazino[1] == cazino[2] || cazino[0] == cazino[2])
+    {
+        prizeResult.Win = betUser * 2;
+        prizeResult.PrizeType = PrizeType.TwoNumbers;
+    }
+    else
+    {
+        prizeResult.Win = 0;
+        prizeResult.PrizeType = PrizeType.Nothing;
+    }
+
+    return prizeResult;
+}
+
+void OutputPrize(PrizeResult prizeResult, int billAccaunt)
+{
+    switch (prizeResult.PrizeType)
+    {
+        case PrizeType.ThreeSeven:
+            Console.Write("JACKPOT! 777 AXE! Congratulations!!!");
+            break;
+        case PrizeType.ThreeSix:
+            Console.Write("JACKPOT! ***666*** ");
+            break;
+        case PrizeType.ThreeNumbers:
+            Console.Write(" *** x3 prize ***");
+            break;
+        case PrizeType.TwoNumbers:
+            Console.Write("*** x2 prize ***");
+            break;
+        case PrizeType.Nothing:
+            Console.Write("*** NOTHING prize ***");
+            break;
+    }
+
+    Console.WriteLine("\n----------------");
+    Console.WriteLine($"Your prize: {prizeResult.Win}$");
     Console.WriteLine($"***Your NEW BILL***: {billAccaunt}$");
 }
 
-void ExitGame(int betUser)
+bool WantsOneMore(int billAccaunt)
 {
-    bool Go = true;
-        if (billAccaunt == 0)
-        {
-            Console.Write("\n----------------");
-            Console.WriteLine("\n Your accaunt bill = 0, NEED MORE MONEY!"); 
-        Go = false;
-        }
-}
-
-void BetMoreBill(int betUser)
-{ 
-bool Go = true;
-    if (betUser > billAccaunt)
+    if (billAccaunt == 0)
     {
-        Console.WriteLine("\n Your bet more how your bill ");
-        Go = false;
+        Console.Write("\n----------------");
+        Console.WriteLine("\nGAME OVER! Your accaunt bill = 0, NEED MORE MONEY!");
+        return false;
+    }
+    else
+    {
+        Console.WriteLine($"\nPlaese press |Y| for next game. Press |N| for quit");
+        string input = Console.ReadLine();
+        if (input == "Y")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
+
 //--------------------------------------------------------------------------------------
 
-int[] cazino = new int[3];
 
-while (true)
+//1 вносим деньги
+//2 делаем ставку
+//3 крутим колесо
+//4 проверка выигрыша
+//5 обновление баланса
+//6 повторить ещё круг
+
+int[] cazino = new int[3];
+int billAccaunt = 100;
+bool isPlay = true;
+
+while (isPlay)
 {
-    {
-    int betUser = InputBet();
-    ExitGame(betUser);
-    BetMoreBill(betUser);
+    int betUser = InputBet(billAccaunt);
+    billAccaunt -= betUser;
+
     CasinoArray(cazino);
     OutputCasinoArray(cazino);
-    CazinoGame(cazino, betUser);
-    OutputPrize(cazino, betUser);
-    }
 
+    PrizeResult prizeResult = CazinoGame(cazino, betUser);
+    billAccaunt += prizeResult.Win;
+
+    OutputPrize(prizeResult, billAccaunt);
+
+    isPlay = WantsOneMore(billAccaunt);
 }
 
-//2. При неверном вводе ставки  продолжает выполнение программы.
-//Надо: Перезапускать программу 
+Console.WriteLine($"YOUR FINISH billAccaunt = {billAccaunt}");
